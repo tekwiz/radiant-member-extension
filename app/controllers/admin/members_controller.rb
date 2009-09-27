@@ -1,13 +1,10 @@
 class Admin::MembersController < ApplicationController
-
   require 'fastercsv'
 
   LIST_PARAMS_BASE = [:page, :sort_by, :sort_order]
   FILTER_COLUMNS = [:name, :email]
   before_filter :add_member_assets
 
-  auto_complete_for :member
-  
   def index
     filter_by_params(FILTER_COLUMNS)
     @members = Member.members_paginate(list_params)
