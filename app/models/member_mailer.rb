@@ -9,8 +9,8 @@ class MemberMailer < ActionMailer::Base
   protected
     def setup_email(member)
       @recipients  = "#{member.email}"
-      @from        = "no_reply@site.ro"
-      @subject     = "www.site.ro"
+      @from        = Radiant::Config['Member.email.from'] || "no_reply@site.ro"
+      @subject     = Radiant::Config['Member.email.subject'] || "www.site.ro"
       @sent_on     = Time.now
       @body[:member] = member
     end

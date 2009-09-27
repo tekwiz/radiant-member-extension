@@ -91,6 +91,12 @@ The settings are created as follows:
 
 Because we use `action_mailer` to send emails to the members you should comment the ` # config.frameworks -= [ :action_mailer ]` in your `environment.rb` file.
 
+
+You may also add the following settings to configure the emails:
+
+    Member.email.from = 'from email address'
+    Member.email.subject = 'email subject'
+
 You will probably need to change the Email template. You can find it in `RADIANT_ROOT/vendor/extensions/member/app/views/member_mailer/password_email.erb`. Modify this template at your will, and keep in mind that you have access to the `@member` variable.
 
 Usage
