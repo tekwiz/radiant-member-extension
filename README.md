@@ -24,11 +24,7 @@ Features
 Installation
 ---
 
-[Member Extension][rme] has three dependencies, the auto\_complete plugin:
-
-    git submodule add git://github.com/rails/auto_complete.git vendor/plugins/auto_complete
-    
-The will\_paginate gem/plugin:
+[Member Extension][rme] has two dependencies, the will\_paginate gem/plugin:
 
     git submodule add git://github.com/mislav/will_paginate.git vendor/plugins/will_paginate
     
