@@ -50,13 +50,6 @@ Then run the rake tasks:
     rake radiant:extensions:member:migrate
     rake radiant:extensions:member:update
 
-###Note    
-
-To get the Radiant 0.7.1 version tag you need to:
-
-    cd vendor/extensions/member/
-    git checkout v0.7
-
 Configuration
 ---
 
@@ -132,49 +125,26 @@ Radiant's caching prevents us from using Rails' flash to notify the user of fail
 
 In order to use the cookie flash you need to add these Javascript files to your page:
 
-    <script src="/javascripts/prototype.js" type="text/javascript"></script>
-    <script src="/javascripts/cookiejar.js" type="text/javascript"></script>
-    <script src="/javascripts/member.js" type="text/javascript"></script>
-    
-There are four flash messages assigned:
-
-When the member logs in successfully we set the `flash[:notice] = "Logged in successfully"`. To see the flash you need to put in the `Member.home_path` page the following snippet:
-
-    <div id="flash" style="display:none"></div>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
-      document.observe("dom:loaded", function () {
-        flash.show('flash', 'notice')
-      })
+      google.load("jquery", "1.3.2");
     </script>
+    <script src="/javascripts/jquery.cookies.2.10.min.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.json-2.1.min.js" type="text/javascript"></script>
+    <script src="/javascripts/flash-box.js" type="text/javascript"></script>
     
-When there is a failed login we set the `flash[:error] = "Couldn't log you in as Member Email"`. To see the flash you need to put in the `Member.login_path` page the following snippet:
+To display the flash messages, simply include the following div:
 
-    <div id="flash" style="display:none"></div>
-    <script type="text/javascript">
-      document.observe("dom:loaded", function () {
-        flash.show('flash', 'error')
-      })
-    </script>
-    
-When the member logs out we set the `flash[:notice] = "You have been logged out."`. To see the flash you need to put in `Member.login_path` page the following snippet:
+    <div class="flash-box" style="display:none"></div>
 
-    <div id="flash" style="display:none"></div>
-    <script type="text/javascript">
-      document.observe("dom:loaded", function () {
-        flash.show('flash', 'notice')
-      })
-    </script>
+If a `flash[:error]` or `flash[:notice]` is assigned, it will display inside the div and either the class `flash-error` or `flash-notice` will be added to the div.
 
-When some user tries to access a protected page we set the `flash[:notice] = "You must be logged in to access this page."`. To see the flash you need to put in `Member.login_path` page the following snippet:
+These are the flahses that are set:
 
-    <div id="flash" style="display:none"></div>
-    <script type="text/javascript">
-      document.observe("dom:loaded", function () {
-        flash.show('flash', 'error')
-      })
-    </script>
-    
-> Note: the above snippet is the same as the one used for the `logout` action. You only need to have this snippet once.
+  * When the member logs in successfully we set the `flash[:notice] = "Logged in successfully"`.
+  * When there is a failed login we set the `flash[:error] = "Couldn't log you in as Member Email"`.
+  * When the member logs out we set the `flash[:notice] = "You have been logged out."`.
+  * When some user tries to access a protected page we set the `flash[:notice] = "You must be logged in to access this page."`.
 
 ### Activate / Deactivate Members
 

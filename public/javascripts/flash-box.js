@@ -18,3 +18,4 @@ jQuery.fn.flashBox = function( options ) {
 jQuery.fn.flashBox.defaults = { noticeClass : 'flash-notice',
                                 errorClass  : 'flash-error',
                                 cookieName  : 'flash' };
+$('.flash-box').flashBox();
