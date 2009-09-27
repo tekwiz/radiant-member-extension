@@ -16,22 +16,18 @@ class Member < ActiveRecord::Base
   validates_presence_of     :name
   validates_format_of       :name,     :with => name_regex
 
-  validates_presence_of     :company
-
   attr_accessor :password
   validates_confirmation_of :password, :if => :password_required?
 
   before_save :encrypt_password
   
-  attr_accessible :email, :name, :password, :password_confirmation, :company
-
+  attr_accessible :email, :name, :password, :password_confirmation
 
   %w{name email}.each do |s|
     named_scope :"by_#{s}", lambda{ |search_term| {:conditions => ["LOWER(#{s}) LIKE ?", "%#{search_term.to_s.downcase}%"]}}
   end
-  named_scope :by_company, lambda{ |search_term| {:conditions => ["company = ?", search_term] } }
   
-  SORT_COLUMNS = ['name', 'email', 'company', 'emailed_at']
+  SORT_COLUMNS = ['name', 'email', 'emailed_at']
 
   def self.members_paginate(params)
     options = {
@@ -46,10 +42,6 @@ class Member < ActiveRecord::Base
       paginate(options)
   end
   
-  def self.find_all_group_by_company
-     find(:all, :group => 'company')
-  end
-  
   def self.import_members(file)
     imported = 0
     duplicate = 0
@@ -57,14 +49,14 @@ class Member < ActiveRecord::Base
     members_from_csv = FasterCSV.parse(file, :headers => true)
     
     members_from_csv.each do |m|
-      member = self.new(:name => m[0], :email => m[1], :company => m[2])
+      member = self.new(:name => m[0], :email => m[1])
       if member.save
         imported = imported + 1
       else
         if member.errors.on(:email) == "has already been taken"
           duplicate = duplicate + 1
         else
-          @not_valid << [m[0], m[1], m[2], member.errors.full_messages.join(', ')]
+          @not_valid << [m[0], m[1], member.errors.full_messages.join(', ')]
         end
       end
     end
@@ -80,7 +72,7 @@ class Member < ActiveRecord::Base
       if member.save
         imported = imported + 1
       else
-        @not_valid << [m[:name], m[:email], m[:company], member.errors.full_messages.join(', ')]
+        @not_valid << [m[:name], m[:email], member.errors.full_messages.join(', ')]
       end      
     end
     [imported, @not_valid]

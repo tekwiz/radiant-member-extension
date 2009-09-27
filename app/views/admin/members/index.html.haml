@@ -7,8 +7,6 @@
       %td= link_to 'Add member', new_member_path
     %tr
       %td
-        %label{:for => 'company'} Company:
-        =select_tag("company", '<option value="">- All companies -</option>' + options_from_collection_for_select(@companies, "company", "company", list_params[:company]))
         - filter_columns.each do |k|
           %label{:for => k} 
             = k.to_s.capitalize
@@ -24,7 +22,6 @@
     %tr
       %th= sortable_column_head("Name", :name)
       %th= sortable_column_head("Email", :email)
-      %th= sortable_column_head("Company", :company)
       %th= sortable_column_head("Emailed at", :emailed_at)
       %th Actions
     %tbody
@@ -32,7 +29,6 @@
         %tr
           %td= m.name
           %td= m.email
-          %td= m.company
           %td
             = m.emailed_at ? date_format(m.emailed_at) : "Email not sent"
             =m.crypted_password.blank? ? "" : '(' + (link_to 'reset password', reset_password_path(:id => m.id)) + ')'

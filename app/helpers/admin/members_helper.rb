@@ -1,5 +1,5 @@
 module Admin::MembersHelper
-  # SORT_LABELS = ['Name', 'Email', 'Company', 'Active', 'Email_sent']
+  # SORT_LABELS = ['Name', 'Email', 'Active', 'Email_sent']
   FILTER_COLUMNS = [:name, :email]
   SORT_CYCLE = {'asc' => 'desc', 'desc' => 'none', 'none' => 'asc'}
   

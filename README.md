@@ -4,13 +4,16 @@ Radiant Member Extension
 About
 ---
 
+This extension is a modification of the extension by  [Aissac][aissac] adding members support to [Radiant CMS][radiant].  This modification changes the javascript implementation to jQuery from Prototype.
+
+Additionally, this extension removes the Company field from the Member model.
+
 An extension by [Aissac][aissac] that adds members support to [Radiant CMS][radiant]. Using this extension you can restrict access to pages on your public site to be accessible only to members that have an account. It is based on Restful Authentication System, so the member model has almost the same attributes. The members can be added or edited only from Radiant Admin.
 
 The [Member Extension][rme] is tested on Radiant 0.7.1 and 0.8.
 
 Features
 ---
-
 * Restricts access to site pages below a certain path, requiring member login.
 * Members can be managed from Radiant Admin. There is *NO* member self-registration.
 * Reset and email member's password from Admin interface;
