@@ -59,4 +59,16 @@ module MemberTags
   tag 'member:sessions' do |tag|
     "#{MemberExtensionSettings.defaults[:sessions_path]}"
   end
+
+  desc %{
+    Use this tag to include the javascripts for the flash boxes
+    
+    *Usage*:
+    <pre><code><r:member_javascripts /></code></pre>
+  }
+  tag 'member_javascripts' do |tag|
+    %(<script type="text/javascript" src="/javascripts/jquery.cookies.2.1.0.min.js"></script>
+      <script type="text/javascript" src="/javascripts/jquery.json-2.1.min.js"></script>
+      <script type="text/javascript" src="/javascripts/flash-box.js"></script>)
+  end
 end
