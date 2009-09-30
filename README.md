@@ -140,7 +140,7 @@ In order to use the cookie flash you need to add these Javascript files to your 
     
 To display the flash messages, simply include the following div:
 
-    <div class="flash-box" style="display:none"></div>
+    <div id="flash-box"></div>
 
 If a `flash[:error]` or `flash[:notice]` is assigned, it will display inside the div and either the class `flash-error` or `flash-notice` will be added to the div.
 

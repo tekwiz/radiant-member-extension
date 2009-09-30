@@ -1,4 +1,5 @@
 jQuery.fn.flashBox = function( options ) {
+  $(this).hide();
   var opts = $.extend(jQuery.fn.flashBox.defaults, options);
   var flash_raw = $.cookies.get(opts.cookieName);
   if(flash_raw == null) { return this; }
@@ -19,6 +20,6 @@ jQuery.fn.flashBox.defaults = { noticeClass : 'flash-notice',
                                 errorClass  : 'flash-error',
                                 cookieName  : 'flash' };
 $(document).ready(function() {
-	$('.flash-box').flashBox();
+  $('#flash-box').flashBox();
 });
 
