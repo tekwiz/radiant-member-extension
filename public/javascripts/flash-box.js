@@ -20,6 +20,6 @@ jQuery.fn.flashBox.defaults = { noticeClass : 'flash-notice',
                                 errorClass  : 'flash-error',
                                 cookieName  : 'flash' };
 $(document).ready(function() {
-  $('#flash-box').flashBox();
+  $('.flash-box').flashBox();
 });
 
