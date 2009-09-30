@@ -4,11 +4,11 @@ jQuery.fn.flashBox = function( options ) {
   var flash_raw = $.cookies.get(opts.cookieName);
   if(flash_raw == null) { return this; }
   var flash = $.evalJSON(unescape(flash_raw.replace(/\+/g, ' ')));
-  if((txt = flash.notice) != 'undefined') {
+  if((txt = flash.notice) != undefined) {
     $(this).text(txt);
     $(this).show();
     $(this).addClass(opts.noticeClass);
-  } else if((txt = flash.error) != 'undefined') {
+  } else if((txt = flash.error) != undefined) {
     $(this).text(txt);
     $(this).show();
     $(this).addClass(opts.errorClass);
