@@ -7,11 +7,11 @@ jQuery.fn.flashBox = function( options ) {
   if((txt = flash.notice) != 'undefined') {
     $(this).text(txt);
     $(this).show();
-    $(this).addClass(opts.flashNoticeClass);
+    $(this).addClass(opts.noticeClass);
   } else if((txt = flash.error) != 'undefined') {
     $(this).text(txt);
     $(this).show();
-    $(this).addClass(opts.flashErrorClass);
+    $(this).addClass(opts.errorClass);
   }
   $.cookies.del(opts.cookieName, {path: '/'})
   return this;
