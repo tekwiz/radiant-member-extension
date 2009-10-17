@@ -2,9 +2,9 @@
 require_dependency 'application_controller'
 
 class MemberExtension < Radiant::Extension
-  version "0.5"
+  version "0.6"
   description "Restrict site content to registered members."
-  url "http://blog.aissac.ro/radiant/member-extension"
+  url "http://github.com/tekwiz/radiant-member-extension"
   
   define_routes do |map|
     map.resources :members, :path_prefix => '/admin', :controller  => 'admin/members', :collection => {:auto_complete_for_member_company => :any}
