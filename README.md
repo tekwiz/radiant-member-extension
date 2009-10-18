@@ -92,6 +92,7 @@ You may also add the following settings to configure the emails:
 
     Member.email.from = 'from email address'
     Member.email.subject = 'email subject'
+    Member.email.login_url = 'http://www.yourdomain.com/your/login/path'
 
 You will probably need to change the Email template. You can find it in `RADIANT_ROOT/vendor/extensions/member/app/views/member_mailer/password_email.erb`. Modify this template at your will, and keep in mind that you have access to the `@member` variable.
 
