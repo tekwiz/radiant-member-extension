@@ -2,7 +2,7 @@
 require_dependency 'application_controller'
 
 class MemberExtension < Radiant::Extension
-  version "0.6"
+  version "0.6.1"
   description "Restrict site content to registered members."
   url "http://github.com/tekwiz/radiant-member-extension"
   
@@ -18,6 +18,7 @@ class MemberExtension < Radiant::Extension
     map.update_members    '/update_invalid_members',          :controller => 'admin/members',   :action => 'update_invalid_members'
     map.activate          '/admin/members/:id/activate',      :controller => 'admin/members',   :action => 'activate'
     map.deactivate        '/admin/members/:id/deactivate',    :controller => 'admin/members',   :action => 'deactivate'
+    map.connect           "/pages/:page_id/update_member",    :controller => "members",         :action => 'update', :method => :post
   end
   
   def activate
@@ -34,11 +35,11 @@ class MemberExtension < Radiant::Extension
     end
     Page.class_eval {
       include MemberTags
+      attr_accessor :current_member
     }
   end
   
   def deactivate
     admin.tabs.remove "Member"
   end
-  
 end
