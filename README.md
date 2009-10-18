@@ -4,13 +4,13 @@ Radiant Member Extension
 About
 ---
 
-This extension is a modification of the extension by  [Aissac][aissac] adding members support to [Radiant CMS][radiant].  This modification changes the javascript implementation to jQuery from Prototype.
+This extension is a modification of the extension by  [Aissac][aissac] adding members support to [Radiant CMS][radiant].  This modification changes the javascript implementation to jQuery from Prototype and includes the ability to create a membership management page for a user to change his information.
 
 Additionally, this extension removes the Company field from the Member model.
 
 An extension by [Aissac][aissac] that adds members support to [Radiant CMS][radiant]. Using this extension you can restrict access to pages on your public site to be accessible only to members that have an account. It is based on Restful Authentication System, so the member model has almost the same attributes. The members can be added or edited only from Radiant Admin.
 
-The [Member Extension][rme] is tested on Radiant 0.7.1 and 0.8.
+**This extension is only confirmed to be compatible with Radiant 0.8.x**
 
 Features
 ---
@@ -24,7 +24,7 @@ Features
 Installation
 ---
 
-[Member Extension][rme] has two dependencies, the will\_paginate gem/plugin:
+[Member Extension][tme] has two dependencies, the will\_paginate gem/plugin:
 
     git submodule add git://github.com/mislav/will_paginate.git vendor/plugins/will_paginate
     
@@ -36,11 +36,11 @@ And the fastercsv gem:
 
     sudo gem install fastercsv
 
-Because [Member Extension][rme] keeps the settings in the Radiant::Config table it is highly recommended to install the [Settings Extension][se]
+Because [Member Extension][tme] keeps the settings in the Radiant::Config table it is highly recommended to install the [Settings Extension][se]
 
     git submodule add git://github.com/Squeegy/radiant-settings.git vendor/extensions/settings
 
-Finally, install the [Member Extension][rme]:
+Finally, install the [Member Extension][tme]:
     
     git submodule add git://github.com/Aissac/radiant-member-extension.git vendor/extensions/member
     
@@ -54,7 +54,7 @@ Configuration
 
 ### Settings
 
-The [Member Extension][rme] keeps its settings in Radiant::Config table, so in order to use correctly the extension you need to create some settings:
+The [Member Extension][tme] keeps its settings in Radiant::Config table, so in order to use correctly the extension you need to create some settings:
 
     Member.login_value = '/members' # The URL for the login form of your website.
     Member.home_path = '/articles' # Members will be redirected here on successful login.
@@ -201,6 +201,6 @@ Contributors
 * Istvan Hoka
 
 [aissac]: http://aissac.ro
-[radiant]: http://radiantcms.org/
-[rme]:http://blog.aissac.ro/radiant/member-extension/
-[se]: http://github.com/Squeegy/radiant-settings/tree/master
+[radiant]: http://radiantcms.org
+[tme]:http://github.com/tekwiz/radiant-member-extension
+[se]: http://github.com/Squeegy/radiant-settings
