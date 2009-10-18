@@ -144,12 +144,38 @@ To display the flash messages, simply include the following div:
 
 If a `flash[:error]` or `flash[:notice]` is assigned, it will display inside the div and either the class `flash-error` or `flash-notice` will be added to the div.
 
-These are the flahses that are set:
+These are the flashes that are set:
 
   * When the member logs in successfully we set the `flash[:notice] = "Logged in successfully"`.
   * When there is a failed login we set the `flash[:error] = "Couldn't log you in as Member Email"`.
   * When the member logs out we set the `flash[:notice] = "You have been logged out."`.
   * When some user tries to access a protected page we set the `flash[:notice] = "You must be logged in to access this page."`.
+  
+### Membership Management Page
+
+You may create a page within the protected members section for a user to modify his information:
+
+    <r:member:form>
+      <r:member:if_error on="all">
+        <p class="errors">There were error errors with the information you submitted:</p>
+        <ul class="errors">
+          <r:member:errors:each><li><r:member:errors:message /></li></r:member:errors:each>
+        </ul>
+      </r:member:if_error>
+      <p><r:member:name_label /><br />
+        <r:member:name_field /></p>
+      <p><r:member:email_label /><br />
+        <r:member:email_field /></p>
+      <p><r:member:password_label /><br />
+        <r:member:password_field /></p>
+      <p><r:member:password_confirmation_label /><br />
+        <r:member:password_confirmation_field /></p>
+      <p><input type="submit" name="submit" value="Submit" /></p>
+    </r:member:form>
+    
+To control where the form goes upon successful update, you need to set the following configuration/setting (By default, the form redirects back to itself):
+
+    Radiant::Config['Member.succesful_member_update'] = '/your/path/here'
 
 ### Activate / Deactivate Members
 
@@ -157,7 +183,7 @@ When you create a new member you have two possibilities: you can leave the passw
 
 Using the import facility of the extension will create only inactive members.
 
-When you deactivate a member, his password is being copied in a new field and he won't be able to access his acount. Activating him will copy his old password.
+When you deactivate a member, his password is being copied in a new field and he won't be able to access his account. Activating him will copy his old password.
 
 ### Administration
 
