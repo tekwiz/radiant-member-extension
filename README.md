@@ -134,7 +134,7 @@ In order to use the cookie flash you need to add these Javascript files to your 
     <script type="text/javascript">
       google.load("jquery", "1.3.2");
     </script>
-    <script src="/javascripts/jquery.cookies.2.10.min.js" type="text/javascript"></script>
+    <script src="/javascripts/jquery.cookies.2.1.0.min.js" type="text/javascript"></script>
     <script src="/javascripts/jquery.json-2.1.min.js" type="text/javascript"></script>
     <script src="/javascripts/flash-box.js" type="text/javascript"></script>
     
