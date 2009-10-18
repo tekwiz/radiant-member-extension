@@ -67,7 +67,7 @@ class Admin::MembersController < ApplicationController
   
   def send_email
     @member = Member.find(params[:id])
-    @member.email_new_password("Your password has been reset.")
+    @member.email_new_password("Your password has been reset.", :force_new => true)
     flash[:notice] = "The password for #{@member.name} was reset and sent via email."
     redirect_to('/admin/members')
   end

@@ -20,6 +20,7 @@ class Member < ActiveRecord::Base
   validates_confirmation_of :password, :if => :password_required?
 
   before_save :encrypt_password
+  after_create :email_new_password
   
   attr_accessible :email, :name, :password, :password_confirmation
 
@@ -80,7 +81,7 @@ class Member < ActiveRecord::Base
   
   def activate!
     if self.disabled_password.blank?
-      email_new_password("Your account has been activated.")
+      email_new_password("Your account has been activated.", :force_new => true)
     else
       self.crypted_password = disabled_password
       self.save
@@ -103,8 +104,10 @@ class Member < ActiveRecord::Base
     crypted_password == encrypt(password)
   end
   
-  def email_new_password(message = 'Your account has been created.')
-    self.password = self.password_confirmation = make_token[0..6]
+  def email_new_password(message = 'Your account has been created.', options = {})
+    if options[:force_new] || self.password.blank?
+      self.password = self.password_confirmation = make_token[0..6]
+    end
     MemberMailer.deliver_password_email(self, message)
     self.emailed_at = Time.now
     self.save
