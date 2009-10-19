@@ -2,7 +2,7 @@
 require_dependency 'application_controller'
 
 class MemberExtension < Radiant::Extension
-  version "0.6.1"
+  version "0.7"
   description "Restrict site content to registered members."
   url "http://github.com/tekwiz/radiant-member-extension"
   
