@@ -52,7 +52,7 @@ class Member < ActiveRecord::Base
     members_from_csv.each do |m|
       member = self.new(:name => m[0], :email => m[1])
       if options[:activate]
-        self.password = self.password_confirmation = make_token[0..6]
+        self.password = self.password_confirmation = self.class.make_token[0..6]
       end
       if member.save
         imported = imported + 1
@@ -82,6 +82,14 @@ class Member < ActiveRecord::Base
     [imported, @not_valid]
   end
   
+  def self.secure_digest(*args)
+    Digest::SHA1.hexdigest(args.flatten.join('--'))
+  end
+  
+  def self.make_token
+    secure_digest(Time.now, (1..10).map{ rand.to_s })
+  end
+  
   def activate!
     if self.disabled_password.blank?
       email_new_password("Your account has been activated.", :force_new => true)
@@ -109,7 +117,7 @@ class Member < ActiveRecord::Base
   
   def email_new_password(message = 'Your account has been created.', options = {})
     if options[:force_new] || self.password.blank?
-      self.password = self.password_confirmation = make_token[0..6]
+      self.password = self.password_confirmation = self.class.make_token[0..6]
     end
     MemberMailer.deliver_password_email(self, message)
     self.emailed_at = Time.now
@@ -128,7 +136,7 @@ class Member < ActiveRecord::Base
   
   def refresh_token
     if remember_token?
-      self.remember_token = make_token 
+      self.remember_token = self.class.make_token 
       save(false)      
     end
   end
@@ -136,7 +144,7 @@ class Member < ActiveRecord::Base
 protected
   def encrypt_password
     return if password.blank?
-    self.salt = make_token if new_record?
+    self.salt = self.class.make_token if new_record?
     self.crypted_password = encrypt(password)
   end
   
@@ -147,17 +155,9 @@ protected
   def password_digest(password, salt)
     digest = MemberExtensionSettings.rest_auth_site_key
     MemberExtensionSettings.rest_auth_digest_stretches.times do
-      digest = secure_digest(digest, salt, password, MemberExtensionSettings.rest_auth_site_key)
+      digest = self.class.secure_digest(digest, salt, password, MemberExtensionSettings.rest_auth_site_key)
     end
     digest
-  end
-  
-  def secure_digest(*args)
-    Digest::SHA1.hexdigest(args.flatten.join('--'))
-  end
-  
-  def make_token
-    secure_digest(Time.now, (1..10).map{ rand.to_s })
   end
   
   def password_required?
@@ -175,7 +175,7 @@ protected
 
   def remember_me_until(time)
     self.remember_token_expires_at = time
-    self.remember_token            = make_token
+    self.remember_token            = self.class.make_token
     save(false)
   end
 end
