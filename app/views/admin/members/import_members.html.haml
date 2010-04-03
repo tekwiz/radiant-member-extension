@@ -9,6 +9,7 @@
       %tr
         %td
           %label{:for => 'file_csv'} Choose a CSV file:
+          %p.note The first line of the CSV file must be the headers, and they must be in the order Name, Email.
       %tr
         %td
           = file_field 'file', 'csv'
@@ -17,3 +18,10 @@
           = submit_tag 'Import data'
           or
           = link_to 'Cancel', members_path
+          
+%h4 Example CSV File
+:preserve
+  <pre>name,email
+  John Smith,john@smith.com
+  Jane Smith,jane@smith.com
+  "John Smith, Jr.",johnjr@smith.com</pre>
