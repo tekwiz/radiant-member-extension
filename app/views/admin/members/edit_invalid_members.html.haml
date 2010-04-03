@@ -6,13 +6,11 @@
       %tr
         %th Name
         %th Email
-        %th Company
         %th Error
       - @not_valid.each do |m|
         %tr
           %td= text_field_tag "member[][name]", m[0]
           %td= text_field_tag "member[][email]", m[1]
-          %td= text_field_tag "member[][company]", m[2]
           %td= m[3]
     = submit_tag 'Add members'
     or
