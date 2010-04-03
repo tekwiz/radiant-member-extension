@@ -43,7 +43,7 @@ class Member < ActiveRecord::Base
       paginate(options)
   end
   
-  def self.import_members(file)
+  def self.import_members(file, options = {})
     imported = 0
     duplicate = 0
     @not_valid = []
@@ -51,6 +51,9 @@ class Member < ActiveRecord::Base
     
     members_from_csv.each do |m|
       member = self.new(:name => m[0], :email => m[1])
+      if options[:activate]
+        self.password = self.password_confirmation = make_token[0..6]
+      end
       if member.save
         imported = imported + 1
       else

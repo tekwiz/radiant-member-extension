@@ -5,6 +5,10 @@
     %table
       %tr
         %td
+          %label{:for => 'file_activate'} Activate Members?
+          = check_box 'file', 'activate', {}, '1', '0'
+      %tr
+        %td
           %label{:for => 'file_csv'} Choose a CSV file:
       %tr
         %td
