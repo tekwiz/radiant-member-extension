@@ -6,6 +6,10 @@ module MemberTags
     tag.expand
   end
   
+  tag "member:name" do |tag|
+    tag.locals.page.current_member.name
+  end
+  
   desc %{
     Renders the login link taking into acount the @member_login_path@ setting from Radiant::Config. Use the @text@ attribute to control the text in the link. The default is "Login".
     
