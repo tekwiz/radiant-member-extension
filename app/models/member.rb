@@ -51,6 +51,9 @@ class Member < ActiveRecord::Base
         :notes, :dob, :lettered, :home, :work, :cell, :fax, :email, :email_2, :occupation, :spouse]
       h = {}
       fields.each_index { |i| h[fields[i]] = m[i] }
+      %w(nl_mailed list_serv_removal paid).each do |field|
+        h[field.to_sym] = true unless h[field.to_sym].blank?
+      end
       member = self.new(h)
       if options[:activate]
         member.password = member.password_confirmation = make_token[0..6]
