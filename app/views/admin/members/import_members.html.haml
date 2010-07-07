@@ -4,10 +4,6 @@
     %table
       %tr
         %td
-          %label{:for => 'file_activate'} Activate Members?
-          = check_box 'file', 'activate', {}, '1', '0'
-      %tr
-        %td
           %label{:for => 'file_csv'} Choose a CSV file:
           %p.note The first line of the CSV file must be the headers, and they must be in the order Name, Email.
       %tr
@@ -19,9 +15,6 @@
           or
           = link_to 'Cancel', members_path
           
-%h4 Example CSV File
+%h4 CSV File Headers:
 :preserve
-  <pre>name,email
-  John Smith,john@smith.com
-  Jane Smith,jane@smith.com
-  "John Smith, Jr.",johnjr@smith.com</pre>
+  <pre>nl_mailed, list_serv_removal, first_name, last_name, street, city, state, zip, paid, notes, dob, lettered, home, work, cell, fax, email, email_2, occupation, spouse</pre>

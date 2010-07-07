@@ -9,12 +9,11 @@ class Member < ActiveRecord::Base
   self.email_regex       = /\A#{email_name_regex}@#{domain_head_regex}#{domain_tld_regex}\z/i
   self.name_regex        = /\A[^[:cntrl:]\\<>\/&]*\z/
   
-  validates_presence_of     :email
-  validates_uniqueness_of   :email
-  validates_format_of       :email,    :with => email_regex
+  validates_uniqueness_of   :email,    :allow_blank => true
+  validates_format_of       :email,    :allow_blank => true, :with => email_regex
 
-  validates_presence_of     :name
-  validates_format_of       :name,     :with => name_regex
+  validates_presence_of     :first_name, :last_name
+  validates_format_of       :first_name, :last_name,     :with => name_regex
 
   attr_accessor :password
   validates_confirmation_of :password, :if => :password_required?
@@ -50,7 +49,11 @@ class Member < ActiveRecord::Base
     members_from_csv = FasterCSV.parse(file, :headers => true)
     
     members_from_csv.each do |m|
-      member = self.new(:name => m[0], :email => m[1])
+      fields = [:nl_mailed, :list_serv_removal, :first_name, :last_name, :street, :city, :state, :zip, :paid, 
+        :notes, :dob, :lettered, :home, :work, :cell, :fax, :email, :email_2, :occupation, :spouse]
+      h = {}
+      fields.each_index { |i| h[fields[i]] = m[i] }
+      member = self.new(:nl_mailed => m[0], :email => m[1])
       if options[:activate]
         member.password = member.password_confirmation = make_token[0..6]
       end
@@ -91,6 +94,7 @@ class Member < ActiveRecord::Base
   end
   
   def activate!
+    return false if self.email.blank?
     if self.disabled_password.blank?
       email_new_password("Your account has been activated.", :force_new => true)
     else
@@ -116,6 +120,7 @@ class Member < ActiveRecord::Base
   end
   
   def email_new_password(message = 'Your account has been created.', options = {})
+    return false if self.email.blank?
     if options[:force_new] || self.password.blank?
       self.password = self.password_confirmation = self.class.make_token[0..6]
     end
@@ -139,6 +144,14 @@ class Member < ActiveRecord::Base
       self.remember_token = self.class.make_token 
       save(false)      
     end
+  end
+  
+  def name
+    first_name + ' ' + last_name
+  end
+  
+  def emailable?
+    not email.blank?
   end
   
 protected
