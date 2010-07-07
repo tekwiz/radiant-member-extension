@@ -147,7 +147,7 @@ class Member < ActiveRecord::Base
   end
   
   def name
-    first_name + ' ' + last_name
+    ((first_name || '') + ' ' + (last_name || '')).strip
   end
   
   def emailable?
