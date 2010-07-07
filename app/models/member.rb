@@ -51,7 +51,7 @@ class Member < ActiveRecord::Base
         :notes, :dob, :lettered, :home, :work, :cell, :fax, :email, :email_2, :occupation, :spouse]
       h = {}
       fields.each_index { |i| h[fields[i]] = m[i] }
-      member = self.new(:nl_mailed => m[0], :email => m[1])
+      member = self.new(h)
       if options[:activate]
         member.password = member.password_confirmation = make_token[0..6]
       end
