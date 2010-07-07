@@ -1,11 +1,83 @@
 %tr
   %th
-    %label{:for => "member_name"} Name:
-  %td= f.text_field :name
+    %label{:for => "member_nl_mailed"} NL - Mailed:
+  %td= f.check_box :nl_mailed
 %tr
   %th
-    %label{:for => "member_email"} Email:
+    %label{:for => "member_list_serv_removal"} List Serv - Removal:
+  %td= f.check_box :list_serv_removal
+%tr
+  %th
+    %label{:for => "member_last_name"} Last Name:
+  %td= f.text_field :last_name
+%tr
+  %th
+    %label{:for => "member_last_name"} First Name:
+  %td= f.text_field :first_name
+%tr
+  %th
+    %label Street:
+  %td= f.text_field :street
+%tr
+  %th
+    %label City:
+  %td= f.text_field :city
+%tr
+  %th
+    %label State:
+  %td= f.text_field :state
+%tr
+  %th
+    %label Zip:
+  %td= f.text_field :zip
+%tr
+  %th
+    %label Paid:
+  %td= f.check_box :paid
+%tr
+  %th
+    %label Notes:
+  %td= f.text_are :notes
+%tr
+  %th
+    %label DOB:
+  %td= f.date_select :dob
+%tr
+  %th
+    %label Lettered:
+  %td= f.text_field :lettered
+%tr
+  %th
+    %label Home:
+  %td= f.text_field :home
+%tr
+  %th
+    %label Work:
+  %td= f.text_field :work
+%tr
+  %th
+    %label Cell:
+  %td= f.text_field :cell
+%tr
+  %th
+    %label Fax:
+  %td= f.text_field :fax
+%tr
+  %th
+    %label Email:
   %td= f.text_field :email
+%tr
+  %th
+    %label Email 2:
+  %td= f.text_field :email_2
+%tr
+  %th
+    %label Occupation:
+  %td= f.text_field :occupation
+%tr
+  %th
+    %label Spouse:
+  %td= f.text_field :spouse
 %tr
   %th
     %label{:for => "member_password"} Password:

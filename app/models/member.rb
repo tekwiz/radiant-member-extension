@@ -12,16 +12,14 @@ class Member < ActiveRecord::Base
   validates_uniqueness_of   :email,    :allow_blank => true
   validates_format_of       :email,    :allow_blank => true, :with => email_regex
 
-  validates_presence_of     :first_name, :last_name
-  validates_format_of       :first_name, :last_name,     :with => name_regex
+  # validates_presence_of     :first_name, :last_name
+  # validates_format_of       :first_name, :last_name,     :with => name_regex
 
-  attr_accessor :password
+  attr_accessor :password, :password_confirmation
   validates_confirmation_of :password, :if => :password_required?
 
   before_save :encrypt_password
   after_create :email_new_password
-  
-  attr_accessible :email, :name, :password, :password_confirmation
 
   %w{name email}.each do |s|
     named_scope :"by_#{s}", lambda{ |search_term| {:conditions => ["LOWER(#{s}) LIKE ?", "%#{search_term.to_s.downcase}%"]}}
@@ -120,7 +118,7 @@ class Member < ActiveRecord::Base
   end
   
   def email_new_password(message = 'Your account has been created.', options = {})
-    return false if self.email.blank?
+    return true if self.email.blank?
     if options[:force_new] || self.password.blank?
       self.password = self.password_confirmation = self.class.make_token[0..6]
     end
