@@ -7,7 +7,7 @@ class AddMemberFields < ActiveRecord::Migration
     %w(paid nl_mailed list_serv_removal).each do |field|
       add_column :members, field.to_sym, :boolean
     end
-    add_column :members :notes, :text
+    add_column :members, :notes, :text
     add_column :members, :dob, :date
   end
   
